@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}
+  Лента записей
+{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h1>Лента записей</h1>                        
+  <p>Количество постов в контексте: {{ posts|length }}</p>
+  {% for pos in post %}
+    <hr>
+    <article>
+      <ul>
+        <li> 
+          Место: {{ pos.location }}
+        </li>
+        <li>
+          Дата: {{ pos.date }}
+        </li>
+        <li>
+          Категория: <a href="{% url 'blog:category_posts' pos.category %}">{{ pos.category }}</a>
+        </li>
+      </ul>
+      <p>
+        {{ pos.text|truncatewords:10 }}
+      </p>
+      <a href="{% url 'blog:post_detail' pos.id %}">Читать полный текст</a>
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}
